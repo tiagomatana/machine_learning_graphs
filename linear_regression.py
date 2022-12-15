@@ -16,10 +16,9 @@ def generate_linear_regression(df, x, y):
     plt.rcParams['figure.figsize'] = (11,7)
     plt.scatter(X_test, y_test,  color='b')
     plt.plot(X_test,y_pred, color='r', linewidth=2)
-    # plt.plot(X_test,(X_test * slope + intercept), color='r', linewidth=2)
     dt = datetime.now()
     ts = datetime.timestamp(dt)
-    filename = f"static/{ts}.png"
+    filename = f"static/linear_regression_{ts}.png"
     plt.savefig(filename)
     plt.close()
     return filename
