@@ -23,24 +23,24 @@ def list_assets(request: Request):
 
 
 @app.post("/regression/linear")
-def linear_regression(request: Request, file: UploadFile = File(...), det: str = "", non_det: str = ""):
+def linear_regression(request: Request, file: UploadFile = File(...), column: str = "", target: str = ""):
     df = pd.read_csv(file.file)
-    filename = generate_linear_regression(df, det, non_det)
+    filename = generate_linear_regression(df, column, target)
     file.file.close()
     return f"{request.base_url}{filename}"
 
 
 @app.post("/scatter")
-async def scatter(request: Request,  file: UploadFile = File(...), columns: Union[str, None]= None):
+async def scatter(request: Request,  file: UploadFile = File(...), x: Union[str, None] = None, y: Union[str, None] = None):
     df = pd.read_csv(file.file)
-    filename = generate_scatter(df, columns)
+    filename = generate_scatter(df, x, y)
     file.file.close()
     return f"{request.base_url}{filename}"
 
 
 @app.post("/confusion/matrix")
-def confusion_matrix(request: Request, file: UploadFile = File(...), target: str = "", result: str = "", label: Union[str, None] = None):
+def confusion_matrix(request: Request, file: UploadFile = File(...), result: str = ""):
     df = pd.read_csv(file.file)
-    filename = generate_confusion_matrix(df, target, result)
+    filename = generate_confusion_matrix(df, result)
     file.file.close()
     return f"{request.base_url}{filename}"
