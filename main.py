@@ -17,7 +17,8 @@ def list_assets(request: Request):
     assets = os.listdir("static")
     response = []
     for a in assets:
-        response.append(f"{request.url}/{a}")
+        if 'png' in a:
+            response.append(f"{request.url}/{a}")
 
     return response
 
