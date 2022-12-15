@@ -27,7 +27,7 @@ def linear_regression(request: Request, file: UploadFile = File(...), det: str =
     df = pd.read_csv(file.file)
     filename = generate_linear_regression(df, det, non_det)
     file.file.close()
-    return f"{request.base_url._url}{filename}"
+    return f"{request.base_url}{filename}"
 
 
 @app.post("/scatter")
@@ -35,7 +35,7 @@ async def scatter(request: Request,  file: UploadFile = File(...), columns: Unio
     df = pd.read_csv(file.file)
     filename = generate_scatter(df, columns)
     file.file.close()
-    return f"{request.base_url._url}{filename}"
+    return f"{request.base_url}{filename}"
 
 
 @app.post("/confusion/matrix")
@@ -43,4 +43,4 @@ def confusion_matrix(request: Request, file: UploadFile = File(...), target: str
     df = pd.read_csv(file.file)
     filename = generate_confusion_matrix(df, target, result)
     file.file.close()
-    return f"{request.base_url._url}{filename}"
+    return f"{request.base_url}{filename}"
