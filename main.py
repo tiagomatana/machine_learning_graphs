@@ -40,8 +40,8 @@ async def scatter(request: Request,  file: UploadFile = File(...), x: Union[str,
 
 
 @app.post("/confusion/matrix")
-def confusion_matrix(request: Request, file: UploadFile = File(...), result: str = ""):
+def confusion_matrix(request: Request, file: UploadFile = File(...), target: str = "", labels: str = ""):
     df = pd.read_csv(file.file)
-    filename = generate_confusion_matrix(df, result)
+    response = generate_confusion_matrix(df, target, labels, request.base_url)
     file.file.close()
-    return f"{request.base_url}{filename}"
+    return response
